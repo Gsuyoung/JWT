@@ -14,5 +14,5 @@ public class WebConfiguration implements WebMvcConfigurer {
         //RestController애노테이션이 붙은 모든 URL에 "/api" prefix를 설정
         configurer.addPathPrefix("api", HandlerTypePredicate.forAnnotation(RestController.class));
     }
-
 }
+

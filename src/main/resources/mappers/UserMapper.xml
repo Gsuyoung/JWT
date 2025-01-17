@@ -21,9 +21,23 @@
         </foreach>
     </insert>
 
+    <resultMap id="selUserWithResultMap" type="com.green.jwt.user.model.UserSelOne">
+        <id property="id" column="id" />
+        <result property="email" column="email" />
+        <result property="pw" column="pw" />
+        <result property="name" column="name" />
+        <collection property="roles" resultMap="selRolesResultMap" />
+    </resultMap>
 
+    <resultMap id="selRolesResultMap" type="com.green.jwt.config.jwt.UserRole">
+        <id property="role" column="role" />
+    </resultMap>
 
-
-
-
+    <select id="selUserWithRoles" resultMap="selUserWithResultMap">
+        SELECT A.id, A.email, A.pw, A.name, B.role
+          FROM user A
+         INNER JOIN user_role B
+            ON A.id = B.user_id
+         WHERE A.email = #{email}
+    </select>
 </mapper>
